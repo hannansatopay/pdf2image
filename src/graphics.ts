@@ -23,7 +23,7 @@ export class Graphics {
 
   private compression = 'jpeg';
 
-  private gm: gm.SubClass = gm.subClass({ imageMagick: false });
+  private gm: gm.SubClass = gm.subClass({ imageMagick: true });
 
   public generateValidFilename(page?: number): string {
     let filePath = path.join(this.savePath, this.saveFilename);
@@ -43,7 +43,8 @@ export class Graphics {
       .density(this.density, this.density)
       .resize(this.width, this.height, this.preserveAspectRatio ? '^' : '!')
       .quality(this.quality)
-      .compress(this.compression);
+      .compress(this.compression)
+      .background('none');
   }
 
   public async toBase64(stream: fs.ReadStream, page?: number): Promise<ToBase64Response> {
